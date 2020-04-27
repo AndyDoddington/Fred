@@ -44,6 +44,10 @@ class FileTreeNode implements TreeNode {
         return count;
     }
 
+    /**
+     * Returns the parent directory of the current file or directory.
+     * @return
+     */
     @Override
     public TreeNode getParent() {
         logger.debug(String.format("Parent of '%s' is '%s'", file.getName(), file.getParent()));
@@ -64,6 +68,10 @@ class FileTreeNode implements TreeNode {
         return 0;
     }
 
+    /**
+     * Indicates whether the current node allows children -i.e. whether it is a directory.
+     * @return
+     */
     @Override
     public boolean getAllowsChildren() {
         logger.debug(String.format("File '%s' does%s allow children", file.getName(), (file.isDirectory() ? "" : " not")));
@@ -72,7 +80,7 @@ class FileTreeNode implements TreeNode {
 
     /**
      * Tests whether the current node is a leaf node. In the context of a file hierarchy, this will
-     * be the case iff the node is a simple file (i.e. rather than being a director).
+     * be the case iff the node is a simple file (i.e. rather than being a directory).
      * @return
      */
     @Override
