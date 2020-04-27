@@ -70,6 +70,11 @@ class FileTreeNode implements TreeNode {
         return file.isDirectory();
     }
 
+    /**
+     * Tests whether the current node is a leaf node. In the context of a file hierarchy, this will
+     * be the case iff the node is a simple file (i.e. rather than being a director).
+     * @return
+     */
     @Override
     public boolean isLeaf() {
         logger.debug(String.format("File '%s' is%s a leaf", file.getName(), (file.isFile() ? "" : " not")));
