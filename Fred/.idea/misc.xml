@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="EmacsSettings">
+    <option name="emacsPath" value="/usr/bin/emacs" />
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_3" project-jdk-name="Elixir 1.8.2" project-jdk-type="Elixir SDK" />
+  <component name="SbtLocalSettings">
+    <option name="modificationStamps">
+      <map>
+        <entry key="$USER_HOME$/dev.git/coursera-scala/Big Data Analysis with Scala and Spark/example" value="1489430422000" />
+        <entry key="$USER_HOME$/dev.git/coursera-scala/Big Data Analysis with Scala and Spark/stackoverflow" value="1489932680000" />
+        <entry key="$USER_HOME$/dev.git/coursera-scala/Big Data Analysis with Scala and Spark/wikipedia" value="1476874220000" />
+        <entry key="$USER_HOME$/dev.git/coursera-scala/Functional Program Design in Scala/calculator" value="1465307346000" />
+        <entry key="$USER_HOME$/dev.git/coursera-scala/Functional Program Design in Scala/example" value="1457116670000" />
+        <entry key="$USER_HOME$/dev.git/coursera-scala/Functional Program Design in Scala/quickcheck" value="1464284570000" />
+        <entry key="$USER_HOME$/dev.git/coursera-scala/Functional Program Design in Scala/streams" value="1464283452000" />
+        <entry key="$USER_HOME$/dev.git/coursera-scala/Parallel Programming/barneshut" value="1475661430000" />
+        <entry key="$USER_HOME$/dev.git/coursera-scala/Parallel Programming/kmeans" value="1465234634000" />
+        <entry key="$USER_HOME$/dev.git/coursera-scala/Parallel Programming/reductions" value="1465233682000" />
+        <entry key="$USER_HOME$/dev.git/coursera-scala/Parallel Programming/scalashop" value="1465232294000" />
+        <entry key="$USER_HOME$/dev.git/coursera-scala/forcomp" value="1462313212000" />
+        <entry key="$USER_HOME$/dev/coursera-scala/example" value="1459516374000" />
+        <entry key="$USER_HOME$/dev/coursera-scala/funsets" value="1462316240000" />
+        <entry key="$USER_HOME$/dev/coursera-scala/objsets" value="1462319246000" />
+        <entry key="$USER_HOME$/dev/coursera-scala/patmat" value="1462376464000" />
+        <entry key="$USER_HOME$/dev/coursera-scala/recfun" value="1462369130000" />
+      </map>
+    </option>
+    <option name="externalProjectsViewState">
+      <projects_view />
+    </option>
+  </component>
+  <component name="ScalaProjectSettings">
+    <option name="intInjectionMapping">
+      <map>
+        <entry key="xml" value="XML" />
+      </map>
+    </option>
+  </component>
+  <component name="designer2.settings">
+    <option name="autodetectServerAddress" value="true" />
+    <option name="serverIp" value="localhost" />
+  </component>
+</project>

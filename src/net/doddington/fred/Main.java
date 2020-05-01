@@ -14,17 +14,17 @@ public class Main {
     private static final Logger logger = LogManager.getLogger(Main.class);
 
     public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (InstantiationException e) {
+//            e.printStackTrace();
+//        } catch (IllegalAccessException e) {
+//            e.printStackTrace();
+//        } catch (UnsupportedLookAndFeelException e) {
+//            e.printStackTrace();
+//        }
 
         TreeNode dummy = new FileTreeNode("/");
 
@@ -38,18 +38,13 @@ public class Main {
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // Define the panel to hold the buttons
-        JPanel panel = new JPanel();
-
-        GridBagLayout layout = new GridBagLayout();
-        panel.setLayout(layout);
-
-        GridBagConstraints gbc = new GridBagConstraints();
-
         JTree tree = new JTree(dummy);
-        panel.add(tree, gbc);
 
-        frame.add(panel);
+        JScrollPane scrollPane = new JScrollPane(tree);
+
+        scrollPane.setPreferredSize(new Dimension(200, 300));
+
+        frame.add(scrollPane);
         frame.pack();
 
         frame.setLocation(500, 500);

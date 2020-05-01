@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.swing.tree.TreeNode;
 import java.io.File;
+import java.io.IOException;
 import java.util.Enumeration;
 
 class FileTreeNode implements TreeNode {
@@ -13,8 +14,13 @@ class FileTreeNode implements TreeNode {
     private final File file;
 
     public FileTreeNode(String fname) {
-        logger.debug(String.format("Created FileTreeNode for '%s'", fname));
+        logger.debug(String.format("Created FileTreeNode for file named '%s'", fname));
         file = new File(fname);
+    }
+
+    public FileTreeNode(File f) {
+        logger.debug(String.format("Created FileTreeNode for file '%s'", f.getName()));
+        file = f;
     }
 
     @Override
@@ -24,7 +30,7 @@ class FileTreeNode implements TreeNode {
 
     @Override
     public TreeNode getChildAt(int childIndex) {
-        String[] children = this.file.list();
+        var children = this.file.listFiles();
 
         logger.debug(String.format("getChildAt on '%s' for child number %d returned '%s'",
                      this.file.getName(), childIndex, children[childIndex]));
@@ -34,10 +40,10 @@ class FileTreeNode implements TreeNode {
 
     @Override
     public int getChildCount() {
-        String[] children = this.file.list();
+        var children = this.file.listFiles();
 
         // if node has no children then list() returns null
-        int count = (children == null) ? 0 : children.length;
+        int count = (children == null) ? 0 : Math.min(children.length,20);
 
         logger.debug(String.format("getChildCount for '%s' returned %d", this.file.getName(), count));
 
@@ -57,10 +63,11 @@ class FileTreeNode implements TreeNode {
 
     @Override
     public int getIndex(TreeNode node) {
-        String[] children = this.file.list();
+        var children = this.file.listFiles();
 
         for (int i=0; i < children.length; i++) {
-            if (node.toString() == children[i]) {
+            // TODO: sort this
+            if (node == children[i]) {
                 logger.debug(String.format("getIndex of '%s' in '%s' returns %d", node, file.getName(), i));
                 return i;
             }
