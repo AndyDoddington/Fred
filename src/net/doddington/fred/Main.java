@@ -5,7 +5,9 @@ import org.apache.logging.log4j.Logger;
 
 import javax.swing.*;
 import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
 import java.awt.*;
+import java.awt.event.MouseEvent;
 
 /**
  * A simple calculator - playing with Java Swing GUI.
@@ -34,15 +36,43 @@ public class Main {
         TreeNode b = dummy.getChildAt(3);
         System.out.println(b);
 
-        JFrame frame = new JFrame("Fred");
+        JFrame frame = new JFrame("Explorer");
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        JTree tree = new JTree(dummy);
+        JTree tree = new JTree(dummy) {
+            @Override
+            public String getToolTipText(MouseEvent evt) {
+                if (getRowForLocation(evt.getX(), evt.getY()) == -1)
+                    return null;
+
+                TreePath curPath = getPathForLocation(evt.getX(), evt.getY());
+
+                FileTreeNode node = (FileTreeNode) curPath.getLastPathComponent();
+
+                if (node != null) {
+                    if (node.isLeaf()) {
+                        return String.format("Node '%s' is a leaf, with size=%d bytes",
+                                node.toString(), node.getFileSize());
+                    } else {
+                        return String.format("Node '%s' is not a leaf and contains %d children",
+                                node.toString(), node.getChildCount());
+                    }
+                } else {
+                    return null;
+                }
+            }
+        };
+
+        ToolTipManager.sharedInstance().
+
+                registerComponent(tree);
 
         JScrollPane scrollPane = new JScrollPane(tree);
 
-        scrollPane.setPreferredSize(new Dimension(400, 600));
+        scrollPane.setPreferredSize(new
+
+                Dimension(400, 600));
 
         frame.add(scrollPane);
         frame.pack();

@@ -14,8 +14,8 @@ class FileTreeNode implements TreeNode {
     private final File file;
 
     public FileTreeNode(String fname) {
+        this(new File(fname));
         logger.debug(String.format("Created FileTreeNode for file named '%s'", fname));
-        file = new File(fname);
     }
 
     public FileTreeNode(File f) {
@@ -100,6 +100,18 @@ class FileTreeNode implements TreeNode {
     @Override
     public Enumeration<? extends TreeNode> children() {
         return new ChildEnumeration(file.list());
+    }
+
+    /**
+     * Returns file size.
+     * @return file size in bytes.
+     */
+    public Object getFileSize() {
+        var s = file.length();
+
+        logger.debug(String.format("File '%s' contains %d bytes", file.getName(), s));
+
+        return s;
     }
 
     private class ChildEnumeration implements Enumeration<TreeNode> {
