@@ -42,7 +42,7 @@ public class Main {
 
         JScrollPane scrollPane = new JScrollPane(tree);
 
-        scrollPane.setPreferredSize(new Dimension(200, 300));
+        scrollPane.setPreferredSize(new Dimension(400, 600));
 
         frame.add(scrollPane);
         frame.pack();

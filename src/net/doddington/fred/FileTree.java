@@ -92,8 +92,9 @@ class FileTreeNode implements TreeNode {
      */
     @Override
     public boolean isLeaf() {
-        logger.debug(String.format("File '%s' is%s a leaf", file.getName(), (file.isFile() ? "" : " not")));
-        return file.isFile();
+        boolean is_leaf = file.isFile();
+        logger.debug(String.format("File '%s' is%s a leaf", file.getName(), (is_leaf ? "" : " not")));
+        return is_leaf;
     }
 
     @Override
