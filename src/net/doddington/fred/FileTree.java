@@ -114,6 +114,14 @@ class FileTreeNode implements TreeNode {
         return s;
     }
 
+    public boolean canBeDeleted() {
+        return true;
+    }
+
+    public boolean canHaveChildrenAdded() {
+        return file.isDirectory();
+    }
+
     private class ChildEnumeration implements Enumeration<TreeNode> {
         private int index;
         private String [] name_list;

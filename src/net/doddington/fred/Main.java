@@ -9,7 +9,6 @@ import javax.swing.tree.TreePath;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 /**
  * A simple calculator - playing with Java Swing GUI.
@@ -30,59 +29,45 @@ public class Main {
 //            e.printStackTrace();
 //        }
 
-        TreeNode dummy = new FileTreeNode("/");
+        TreeNode root = new FileTreeNode("/");
 
-        int a = dummy.getChildCount();
-        System.out.println(a);
-
-        TreeNode b = dummy.getChildAt(3);
-        System.out.println(b);
+        JTree tree = new JTree(root);
 
         JFrame frame = new JFrame("Explorer");
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        JTree tree = new JTree(dummy);
-//        {
-//            @Override
-//            public String getToolTipText(MouseEvent evt) {
-//                if (getRowForLocation(evt.getX(), evt.getY()) == -1)
-//                    return null;
-//                TreePath curPath = getPathForLocation(evt.getX(), evt.getY());
-//                FileTreeNode node = (FileTreeNode) curPath.getLastPathComponent();
-//
-//                if (node != null) {
-//                    if (node.isLeaf()) {
-//                        return String.format("Node '%s' is a leaf, with size=%d bytes",
-//                                node.toString(), node.getFileSize());
-//                    } else {
-//                        return String.format("Node '%s' is not a leaf and contains %d children",
-//                                node.toString(), node.getChildCount());
-//                    }
-//                } else {
-//                    return null;
-//                }
-//            }
-//        };
-
-//        ToolTipManager.sharedInstance().registerComponent(tree);
-
         tree.addMouseListener(new MouseAdapter() {
-                public void mousePressed(MouseEvent e) {
-                    maybeShowPopup(e);
-                }
+            public void mousePressed(MouseEvent e) {
+                maybeShowPopup(e);
+            }
 
-                public void mouseReleased(MouseEvent e) {
-                    maybeShowPopup(e);
-                }
+            public void mouseReleased(MouseEvent e) {
+                maybeShowPopup(e);
+            }
 
-                private void maybeShowPopup(MouseEvent e) {
-                    if (e.isPopupTrigger()) {
-                        TreePopup popup = new TreePopup();
-                        popup.show(e.getComponent(),
-                                   e.getX(), e.getY());
+            private void maybeShowPopup(MouseEvent e) {
+                if (e.isPopupTrigger()) {
+                    // the mouse event must be inside a JTree
+                    JTree tree = (JTree) e.getComponent();
+
+                    // find out which row we are at in the tree (-1 if not inside the tree)
+                    int row = tree.getRowForLocation(e.getX(), e.getY());
+
+                    // ignore if we are outsidde the tree area
+                    if (row != -1) {
+                        // find the path of the tree node which we want to use
+                        TreePath path = tree.getPathForLocation(e.getX(), e.getY());
+
+                        // then use the path to find the actual tree node
+                        FileTreeNode leaf = (FileTreeNode)path.getLastPathComponent();
+
+                        // the nature of the popup depends on the type of tree node (directory etc)
+                        TreePopup popup = new TreePopup(leaf);
+                        popup.show(e.getComponent(), e.getX(), e.getY());
                     }
                 }
+            }
         });
 
         JScrollPane scrollPane = new JScrollPane(tree);

@@ -1,25 +1,39 @@
 package net.doddington.fred;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.util.SystemPropertiesPropertySource;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 class TreePopup extends JPopupMenu {
-    public TreePopup() {
-        JMenuItem delete = new JMenuItem("Delete");
-        JMenuItem add = new JMenuItem("Add");
-//        delete.addActionListener(new ActionListener() {
-//            public void actionPerformed(ActionEvent ae) {
-//                System.out.println("Delete child");
-//            }
-//        });
-//        add.addActionListener(new ActionListener() {
-//            public void actionPerformed(ActionEvent ae) {
-//                System.out.println("Add child");
-//            }
-//        });
-        add(delete);
+    private static final Logger logger = LogManager.getLogger(TreePopup.class);
+
+    public TreePopup(FileTreeNode node) {
+
+        if (node.canBeDeleted()) {
+            JMenuItem delete = new JMenuItem("Delete");
+            delete.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent ae) {
+                    logger.info("Delete child");
+                }
+            });
+
+            add(delete);
+        };
+
         add(new JSeparator());
-        add(add);
+
+        if (node.canHaveChildrenAdded()) {
+            JMenuItem add = new JMenuItem("Add");
+            add.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent ae) {
+                    logger.info("Add child");
+                }
+            });
+            add(add);
+        };
     }
 }
