@@ -31,6 +31,7 @@ class TreePopup extends JPopupMenu {
             add.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent ae) {
                     logger.info("Add child");
+                    node.addDummyChild();
                 }
             });
             add(add);

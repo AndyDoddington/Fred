@@ -122,6 +122,14 @@ class FileTreeNode implements TreeNode {
         return file.isDirectory();
     }
 
+    public void addDummyChild() {
+        try {
+            File.createTempFile("prefix", ".tmp", file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private class ChildEnumeration implements Enumeration<TreeNode> {
         private int index;
         private String [] name_list;
