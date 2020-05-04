@@ -5,9 +5,8 @@ import org.apache.logging.log4j.Logger;
 
 import javax.swing.*;
 import javax.swing.tree.TreeNode;
-import javax.swing.tree.TreePath;
 import java.awt.*;
-import java.awt.event.MouseEvent;
+import java.awt.event.ActionListener;
 
 /**
  * A simple calculator - playing with Java Swing GUI.
@@ -17,7 +16,7 @@ public class Main {
 
     public static void main(String[] args) {
 //        try {
-//            UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+//            UIManager.setLookAndFeel("javax.swing.plaf.metal.");
 //        } catch (ClassNotFoundException e) {
 //            e.printStackTrace();
 //        } catch (InstantiationException e) {
@@ -36,48 +35,44 @@ public class Main {
         TreeNode b = dummy.getChildAt(3);
         System.out.println(b);
 
-        JFrame frame = new JFrame("Explorer");
+        JFrame frame = new JFrame("Fred");
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        JTree tree = new JTree(dummy) {
-            @Override
-            public String getToolTipText(MouseEvent evt) {
-                if (getRowForLocation(evt.getX(), evt.getY()) == -1)
-                    return null;
+        // Define the panel to hold the buttons
+        JPanel panel = new JPanel();
 
-                TreePath curPath = getPathForLocation(evt.getX(), evt.getY());
+        GridBagLayout layout = new GridBagLayout();
+        panel.setLayout(layout);
 
-                FileTreeNode node = (FileTreeNode) curPath.getLastPathComponent();
+        GridBagConstraints gbc = new GridBagConstraints();
+    
+        JTree tree = new JTree(dummy);
+        panel.add(tree, gbc);
 
-                if (node != null) {
-                    if (node.isLeaf()) {
-                        return String.format("Node '%s' is a leaf, with size=%d bytes",
-                                node.toString(), node.getFileSize());
-                    } else {
-                        return String.format("Node '%s' is not a leaf and contains %d children",
-                                node.toString(), node.getChildCount());
-                    }
-                } else {
-                    return null;
-                }
-            }
-        };
-
-        ToolTipManager.sharedInstance().
-
-                registerComponent(tree);
-
-        JScrollPane scrollPane = new JScrollPane(tree);
-
-        scrollPane.setPreferredSize(new
-
-                Dimension(400, 600));
-
-        frame.add(scrollPane);
+        frame.add(panel);
         frame.pack();
 
         frame.setLocation(500, 500);
         frame.setVisible(true);
+    }
+}
+class TreePopup extends JPopupMenu {
+    public TreePopup(JTree tree) {
+        JMenuItem delete = new JMenuItem("Delete");
+        JMenuItem add = new JMenuItem("Add");
+        delete.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+                System.out.println("Delete child");
+            }
+        });
+        add.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+                System.out.println("Add child");
+            }
+        });
+        add(delete);
+        add(new JSeparator());
+        add(add);
     }
 }
