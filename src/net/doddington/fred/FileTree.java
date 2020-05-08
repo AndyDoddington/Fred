@@ -3,9 +3,9 @@ package net.doddington.fred;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.sound.midi.SysexMessage;
 import javax.swing.tree.TreeNode;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.Enumeration;
 
 class FileTreeNode implements TreeNode {
@@ -128,6 +128,41 @@ class FileTreeNode implements TreeNode {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void typeContents() throws IOException {
+        System.out.println("Type the contents of " + file.getName());
+
+        FileReader fis = new FileReader(file);
+
+        BufferedReader br = new BufferedReader(fis);
+
+        // read the first line, to prime the pump
+        String line = br.readLine();
+
+        while (line != null && isValid(line)) {
+            System.out.println(line);
+            line = br.readLine();
+        }
+
+        if (line != null) {
+            System.out.println("File contained control chars!");
+        }
+    }
+
+    /**
+     * Checks for any control chasarters in string
+     * @param str The string to be tested
+     * @return true iff the string does *not* contain any control characters
+     */
+    private boolean isValid(String str) {
+        for (int i =0; i < str.length(); i++) {
+            if (Character.isISOControl(str.charAt(i))) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private class ChildEnumeration implements Enumeration<TreeNode> {

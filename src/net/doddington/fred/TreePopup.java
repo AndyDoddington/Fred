@@ -7,6 +7,7 @@ import org.apache.logging.log4j.util.SystemPropertiesPropertySource;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 class TreePopup extends JPopupMenu {
     private static final Logger logger = LogManager.getLogger(TreePopup.class);
@@ -24,9 +25,9 @@ class TreePopup extends JPopupMenu {
             add(delete);
         };
 
-        add(new JSeparator());
-
         if (node.canHaveChildrenAdded()) {
+            add(new JSeparator());
+
             JMenuItem add = new JMenuItem("Add");
             add.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent ae) {
@@ -34,6 +35,25 @@ class TreePopup extends JPopupMenu {
                     node.addDummyChild();
                 }
             });
+            add(add);
+        };
+
+        // not directory, means normal file
+        if (!node.canHaveChildrenAdded()) {
+            add(new JSeparator());
+
+            JMenuItem add = new JMenuItem("Type");
+            add.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent ae) {
+                    logger.info("Type contents");
+                    try {
+                        node.typeContents();
+                    } catch (IOException e) {
+                        System.out.println("Error typing file: " + e.getMessage() );
+                    }
+                }
+            });
+
             add(add);
         };
     }
