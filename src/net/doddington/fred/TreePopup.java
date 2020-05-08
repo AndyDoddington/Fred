@@ -56,5 +56,7 @@ class TreePopup extends JPopupMenu {
 
             add(add);
         };
+
+        this.pack();
     }
 }
