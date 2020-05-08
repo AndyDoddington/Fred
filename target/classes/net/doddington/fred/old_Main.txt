@@ -1,0 +1,174 @@
+package net.doddington.fred;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import javax.swing.*;
+import javax.swing.tree.TreeNode;
+import java.util.Enumeration;
+
+class StringTreeNode implements TreeNode {
+    private final String name;
+    private TreeNode parent;
+
+    StringTreeNode(TreeNode parent, String name) {
+        this.parent = parent;
+        this.name = name;
+    }
+
+    public void setParent(TreeNode p) {
+        this.parent = p;
+    }
+
+    @Override
+    public TreeNode getChildAt(int childIndex) {
+        return null;
+    }
+
+    @Override
+    public int getChildCount() {
+        return 0;
+    }
+
+    @Override
+    public TreeNode getParent() {
+        return parent;
+    }
+
+    @Override
+    public int getIndex(TreeNode node) {
+        return 0;
+    }
+
+    @Override
+    public boolean getAllowsChildren() {
+        return false;
+    }
+
+    @Override
+    public boolean isLeaf() {
+        return true;
+    }
+
+    @Override
+    public Enumeration<? extends TreeNode> children() {
+        return null;
+    }
+}
+
+class DummyTreeNode implements TreeNode {
+    private final TreeNode[] children;
+    private final TreeNode parent;
+
+    DummyTreeNode(TreeNode parent, TreeNode [] children) {
+        this.parent = parent;
+        this.children = children;
+    }
+
+    @Override
+    public TreeNode getChildAt(int childIndex) {
+        return children[childIndex];
+    }
+
+    @Override
+    public int getChildCount() {
+        return children.length;
+    }
+
+    @Override
+    public TreeNode getParent() {
+        return parent;
+    }
+
+    @Override
+    public int getIndex(TreeNode node) {
+        for (int i=0; i < children.length; i++) {
+            if (children[i].equals(node)) {
+                return i;
+            };
+        }
+
+        return -1;
+    }
+
+    @Override
+    public boolean getAllowsChildren() {
+        return false;
+    }
+
+    @Override
+    public boolean isLeaf() {
+        return children == null || children.length == 0;
+    }
+
+    @Override
+    public Enumeration<? extends TreeNode> children() {
+        return new ChildEnumeration(children);
+    }
+
+    private class ChildEnumeration implements Enumeration<TreeNode> {
+        private final TreeNode[] collection;
+        private int index;
+
+        public ChildEnumeration(TreeNode[] children) {
+            this.index = 0;
+            this.collection = children;
+        }
+
+        @Override
+        public boolean hasMoreElements() {
+            return this.index < collection.length;
+        }
+
+        @Override
+        public TreeNode nextElement() {
+            return collection[index++];
+        }
+    }
+}
+
+/**
+ * A simple calculator - playing with Java Swing GUI.
+ */
+public class Main {
+    private static final Logger logger = LogManager.getLogger(Main.class);
+
+    public static void main(String[] args) {
+        try {
+            UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
+
+        TreeNode[] kids = new TreeNode[]{new StringTreeNode(null, "foo")};
+
+
+        TreeNode root =
+
+
+
+//        JFrame frame = new JFrame("Fred");
+//
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//
+//        // Define the panel to hold the buttons
+//        JPanel panel = new JPanel();
+//
+//        GridBagLayout layout = new GridBagLayout();
+//        panel.setLayout(layout);
+//
+//        GridBagConstraints gbc = new GridBagConstraints();
+//
+//        frame.add(panel);
+//        frame.pack();
+//
+//        frame.setLocation(500, 500);
+//        frame.setVisible(true);
+    }
+}
