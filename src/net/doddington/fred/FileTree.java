@@ -43,7 +43,7 @@ class FileTreeNode implements TreeNode {
         var children = this.file.listFiles();
 
         // if node has no children then list() returns null
-        int count = (children == null) ? 0 : Math.min(children.length,20);
+        int count = (children == null) ? 0 : children.length;
 
         logger.debug(String.format("getChildCount for '%s' returned %d", this.file.getName(), count));
 
@@ -99,7 +99,8 @@ class FileTreeNode implements TreeNode {
 
     @Override
     public Enumeration<? extends TreeNode> children() {
-        return new ChildEnumeration(file.list());
+        String[] kids = file.list();
+        return new ChildEnumeration(kids);
     }
 
     /**
@@ -148,6 +149,8 @@ class FileTreeNode implements TreeNode {
         if (line != null) {
             System.out.println("File contained control chars!");
         }
+
+        System.out.println("-----------EOF-------------");
     }
 
     /**
